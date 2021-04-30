@@ -8,7 +8,7 @@ eventListeners();
 function eventListeners() {
      //  Form Submission 
      document.querySelector('#form').addEventListener('submit', newTweet);
-
+     
      // Remove tweet from the list 
      tweetList.addEventListener('click', removeTweet);
      
@@ -24,12 +24,11 @@ function newTweet(e) {
      
      //Read the textarea value
      const tweet = document.getElementById('tweet').value;
-
-
+     
      // Create the remove button
      const removeBtn = document.createElement('a');
      removeBtn.classList = 'remove-tweet';
-     removeBtn.textContent = 'X';     
+     removeBtn.textContent = 'X';
       
      // Create an <li> element
      const li = document.createElement('li');
@@ -40,24 +39,25 @@ function newTweet(e) {
      
      // Add to the list
      tweetList.appendChild(li);
-
-     // add to Local Storage
+     
+     // add to local storage 
      addTweetLocalStorage(tweet);
-}      
 
+} 
 
 // Remove the Tweets from the DOM
 function removeTweet(e) {
      if(e.target.classList.contains('remove-tweet')) {
           e.target.parentElement.remove();
-     }
-}       
-
+     } 
+     
+     // Remove from Storage
+     removeTweetLocalStorage( e.target.parentElement.textContent );
+}
 
 // Add the tweets into local storage
 function addTweetLocalStorage(tweet) {
-}ction addTweetLocalStorage(tweet) {
-}      let tweets = getTweetsFromStorage();
+     let tweets = getTweetsFromStorage();
      
      // Add the tweet into the array 
      tweets.push(tweet);
@@ -94,9 +94,28 @@ function localStorageOnLoad() {
           li.textContent = tweet;
      
           // Add the remove button to each tweet
-          li.appendChild(removeBtn);
+          li.appendChild(reemoveBtn);
      
           // Add to the list
           tweetList.appendChild(li);
+     });
+}
+
+// Removes the tweet from local storage 
+
+function removeTweetLocalStorage(tweet) {
+     // get tweets from storage 
+     let tweets = getTweetsFromStorage();
+     
+     
+     // Remove the X from the tweet
+     
+     const tweetDelete = tweet.substring( 0,tweet.length -1 );
+     
+     // loop throught the tweets and remove the tweet that's equal 
+     tweets.forEach(function(tweetLS, index) {
+          if(tweetDelete === tweetLS) {
+               tweets.splice(index, 1);
+          }
      });
 }
