@@ -35,4 +35,12 @@ function newTweet(e) {
      
      // Add to the list
      tweetList.appendChild(li);
+}      
+
+
+// Remove the Tweets from the DOM
+function removeTweet(e) {
+     if(e.target.classList.contains('remove-tweet')) {
+          e.target.parentElement.remove();
+     }
 }
